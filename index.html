@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Emotional AI in Lending </title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<style>
+    body {
+        font-family: 'Inter', sans-serif;
+        background-color: #0f172a;
+        color: #f8fafc;
+        margin: 0;
+        overflow: hidden;
+    }
+    .scroll-container {
+        height: 100vh;
+        overflow-y: auto;
+        scroll-snap-type: y mandatory;
+        scrollbar-width: thin;
+        scrollbar-color: #3b82f6 #0f172a;
+        scroll-behavior: smooth;
+    }
+    .slide {
+        scroll-snap-align: start;
+        height: 100vh;
+        width: 100vw;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 2rem 5%;
+        position: relative;
+        box-sizing: border-box;
+        border-bottom: 1px solid #1e293b;
+    }
+    .slide-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        width: 100%;
+    }
+    .chart-container {
+        position: relative;
+        width: 100%;
+        max-width: 900px;
+        margin: 0 auto;
+        height: 40vh;
+        max-height: 350px;
+    }
+    .gradient-text {
+        background: linear-gradient(to right, #3b82f6, #10b981);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    .card {
+        background: rgba(30, 41, 59, 0.7);
+        backdrop-filter: blur(10px);
+        border: 1px solid #334155;
+        border-radius: 1rem;
+        padding: 1.5rem;
+    }
+    .slide-number {
+        position: absolute;
+        bottom: 1.5rem;
+        right: 2.5rem;
+        font-size: 0.875rem;
+        color: #64748b;
+        font-weight: 600;
+        letter-spacing: 0.05em;
+    }
+    .section-tag {
+        color: #3b82f6;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        font-size: 0.875rem;
+        margin-bottom: 1rem;
+        display: inline-block;
+        border-bottom: 2px solid #10b981;
+        padding-bottom: 0.25rem;
+    }
+    .appendix-tag {
+        color: #f59e0b; /* Amber for Appendix */
+        border-bottom-color: #f59e0b;
+    }
+    /* Formula Styling */
+    .math-formula {
+        font-family: 'Courier New', Courier, monospace;
+        background: #000;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        border: 1px solid #334155;
+        color: #10b981;
+        font-size: 1.25rem;
+        text-align: center;
+        letter-spacing: 0.05em;
+    }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { padding: 12px; text-align: left; border-bottom: 1px solid #334155; }
+    th { background-color: #1e293b; color: #3b82f6; font-weight: 600; }
+    tr:hover { background-color: rgba(59, 130, 246, 0.1); }
+</style>
+</head>
+<body>
+
+<div class="scroll-container">
+
+    <!-- ================= MAIN DECK (SLIDES 1-12) ================= -->
+    
+    <section class="slide items-center text-center bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-slate-800 via-slate-900 to-slate-900">
+        <div class="slide-content max-w-4xl">
+            <div class="inline-block px-4 py-1 rounded-full bg-slate-800 border border-slate-700 text-slate-300 text-sm font-semibold mb-8 shadow-lg">
+                IIT Kanpur Global Case Competition Submission
+            </div>
+            <h1 class="text-5xl md:text-7xl font-extrabold mb-6 tracking-tight leading-tight">
+                Empathy as a Metric:<br/>
+                <span class="gradient-text">Emotional AI in Lending</span>
+            </h1>
+            <p class="text-xl text-slate-400 max-w-2xl mx-auto mb-12 leading-relaxed">
+                Re-engineering the financial ecosystem from pure transactional logic to behavioral, context-aware intelligence.
+            </p>
+            <div class="text-sm text-slate-500 mt-12 animate-pulse">Scroll to Navigate ⬇</div>
+        </div>
+        <!-- <div class="slide-number">01 / 18</div> -->
+    </section>
+
+    <!-- Slide 2: Core Problem -->
+    <section class="slide">
+        <div class="slide-content">
+            <div class="section-tag">1. The Core Problem</div>
+            <h2 class="text-4xl font-bold mb-4">The Myth of "Homo Economicus"</h2>
+            <p class="text-slate-400 mb-8 max-w-4xl text-lg">Traditional finance assumes humans act rationally (Ability to Pay). Behavioral finance proves financial decisions are driven by panic and stress (Willingness & State of Mind).</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <div class="card border-l-4 border-red-500">
+                    <h3 class="text-xl font-bold text-red-400 mb-2">Current System Failure</h3>
+                    <p class="text-slate-300 text-sm leading-relaxed mb-4">Credit scores (CIBIL/FICO) are rearview mirrors. They don't detect a user making an impulsive, high-interest borrowing decision at 2 AM due to panic.</p>
+                </div>
+                <div class="card bg-slate-800/50"><div class="chart-container"><canvas id="radarChart"></canvas></div></div>
+            </div>
+        </div>
+        <!-- <div class="slide-number">02 / 18</div> -->
+    </section>
+
+    <!-- Slide 3: First Principles -->
+    <section class="slide">
+        <div class="slide-content">
+            <div class="section-tag">2. First Principles Thinking</div>
+            <h2 class="text-4xl font-bold mb-4">Why Lending & Collections?</h2>
+            <p class="text-slate-400 mb-6 max-w-4xl text-lg">We mapped the financial ecosystem based on Emotional Stress vs. Business Risk. Lending and Collections represent the highest convergence of both.</p>
+            <div class="card"><div class="chart-container"><canvas id="bubbleChart"></canvas></div></div>
+        </div>
+        <!-- <div class="slide-number">03 / 18</div> -->
+    </section>
+
+    <!-- Slide 4: Tech -->
+    <section class="slide">
+        <div class="slide-content">
+            <div class="section-tag">3. The Technology</div>
+            <h2 class="text-4xl font-bold mb-4">Passive Behavioral Biometrics</h2>
+            <p class="text-slate-400 mb-6 max-w-4xl text-lg">We measure emotion without violating privacy. No cameras. No microphones. We use existing smartphone sensor telemetry.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="card flex justify-center items-center"><div class="chart-container h-[250px]"><canvas id="doughnutChart"></canvas></div></div>
+                <div class="flex flex-col justify-center space-y-4">
+                    <div class="p-4 rounded-lg bg-slate-800 border border-slate-700"><h4 class="font-bold text-blue-400">Typing Cadence</h4><p class="text-sm text-slate-400">Erratic typing indicates anxiety.</p></div>
+                    <div class="p-4 rounded-lg bg-slate-800 border border-slate-700"><h4 class="font-bold text-emerald-400">Touch Pressure</h4><p class="text-sm text-slate-400">Hard presses suggest frustration.</p></div>
+                    <div class="p-4 rounded-lg bg-slate-800 border border-slate-700"><h4 class="font-bold text-amber-400">Time to Decision</h4><p class="text-sm text-slate-400">Rapid T&C acceptance flags desperation.</p></div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="slide-number">04 / 18</div> -->
+    </section>
+
+    <!-- Slide 5: Edge Architecture -->
+    <section class="slide">
+        <div class="slide-content">
+            <div class="section-tag">4. System Architecture</div>
+            <h2 class="text-4xl font-bold mb-8">Edge AI: Privacy-First Processing</h2>
+            <div class="flex flex-col md:flex-row items-stretch justify-between space-y-4 md:space-y-0 md:space-x-4">
+                <div class="card flex-1 text-center border-t-4 border-slate-500">
+                    <div class="text-5xl mb-4">📱</div><h3 class="font-bold text-white mb-2">1. Client Device</h3><p class="text-xs text-slate-400">Collects raw keystrokes/gyro.</p>
+                    <div class="mt-4 text-xs text-rose-400">Data NEVER leaves phone</div>
+                </div>
+                <div class="flex items-center text-3xl text-slate-600 hidden md:flex">➔</div>
+                <div class="card flex-1 text-center border-t-4 border-emerald-500 bg-slate-800">
+                    <div class="text-5xl mb-4">🧠</div><h3 class="font-bold text-white mb-2">2. Local Inference Model</h3><p class="text-xs text-slate-400">Translates behavior into Anxiety Score.</p>
+                    <div class="mt-4 text-xs text-emerald-400">Processes in milliseconds</div>
+                </div>
+                <div class="flex items-center text-3xl text-slate-600 hidden md:flex">➔</div>
+                <div class="card flex-1 text-center border-t-4 border-blue-500">
+                    <div class="text-5xl mb-4">🏦</div><h3 class="font-bold text-white mb-2">3. Bank Server Layer</h3><p class="text-xs text-slate-400">Receives Encrypted Score only.</p>
+                    <div class="mt-4 text-xs text-blue-400">Zero PII Transmitted</div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="slide-number">05 / 18</div> -->
+    </section>
+
+    <!-- Slide 6: Phase 1 -->
+    <section class="slide">
+        <div class="slide-content">
+            <div class="section-tag">5. Core Strategy | Phase 1</div>
+            <h2 class="text-4xl font-bold mb-4">Mindful Underwriting (Pre-Lending)</h2>
+            <p class="text-slate-400 mb-6 max-w-4xl text-lg">For "Thin-file" customers, Emotional AI acts as a psychometric proxy for trust, expanding the Total Addressable Market (TAM) safely.</p>
+            <div class="card"><div class="chart-container"><canvas id="stackedBarChart"></canvas></div></div>
+        </div>
+        <!-- <div class="slide-number">06 / 18</div> -->
+    </section>
+
+    <!-- Slide 7: Phase 2 -->
+    <section class="slide">
+        <div class="slide-content">
+            <div class="section-tag">6. Core Strategy | Phase 2</div>
+            <h2 class="text-4xl font-bold mb-4">Dynamic "Positive Friction" UI</h2>
+            <p class="text-slate-400 mb-6 max-w-4xl text-lg">If the edge model detects high anxiety (Panic Borrowing), the UI actively transforms to slow the user down.</p>
+            <div class="card"><div class="chart-container"><canvas id="scatterChart"></canvas></div></div>
+        </div>
+        <!-- <div class="slide-number">07 / 18</div> -->
+    </section>
+
+    <!-- Slide 8: UX Mockup -->
+    <section class="slide">
+        <div class="slide-content">
+            <div class="section-tag">7. User Experience Design</div>
+            <h2 class="text-4xl font-bold mb-6">The "Nudge" in Action</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center max-w-4xl mx-auto">
+                <div class="border border-slate-700 rounded-xl p-4 bg-black h-80 flex flex-col justify-center items-center opacity-50">
+                    <div class="text-xs text-slate-500 mb-4">Standard UI (Calm User)</div>
+                    <button class="w-4/5 bg-blue-600 text-white font-bold py-3 rounded">Confirm Loan in 1-Click</button>
+                </div>
+                <div class="border border-amber-500 rounded-xl p-4 bg-slate-900 h-80 flex flex-col justify-center items-center">
+                    <div class="text-xs text-amber-500 mb-4 font-bold">High Anxiety Detected</div>
+                    <div class="w-4/5 bg-slate-800 p-4 rounded text-center text-sm text-slate-300 mb-4">
+                        Review breakdown:<br/>Total Due: $6,600 (32% APR)
+                    </div>
+                    <div class="w-4/5 flex space-x-2">
+                        <button class="flex-1 bg-slate-700 text-slate-300 py-2 rounded text-sm">Cancel</button>
+                        <button class="flex-1 bg-amber-600 text-white py-2 rounded text-sm" disabled>Wait 5s...</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="slide-number">08 / 18</div> -->
+    </section>
+
+    <!-- Slide 9: Phase 3 -->
+    <section class="slide">
+        <div class="slide-content">
+            <div class="section-tag">8. Core Strategy | Phase 3</div>
+            <h2 class="text-4xl font-bold mb-4">Compassionate Collections</h2>
+            <p class="text-slate-400 mb-6 max-w-4xl text-lg">Aggressive bot calls trigger 'Fight or Flight'. Empathetic Restructuring drastically improves actual recovery.</p>
+            <div class="card"><div class="chart-container"><canvas id="lineChart"></canvas></div></div>
+        </div>
+        <div class="slide-number">09 / 18</div>
+    </section>
+
+    <!-- Slide 10: ROI -->
+    <section class="slide">
+        <div class="slide-content">
+            <div class="section-tag">9. Business Model & Strategy</div>
+            <h2 class="text-4xl font-bold mb-4">The ROI of Empathy</h2>
+            <p class="text-slate-400 mb-6 max-w-4xl text-lg">A highly profitable operational upgrade for financial institutions.</p>
+            <div class="card"><div class="chart-container"><canvas id="barChart"></canvas></div></div>
+        </div>
+        <!-- <div class="slide-number">10 / 18</div> -->
+    </section>
+
+    <!-- Slide 11: Ethics -->
+    <section class="slide">
+        <div class="slide-content">
+            <div class="section-tag">10. Ethical & Responsible AI</div>
+            <h2 class="text-4xl font-bold mb-6">The Guardrails</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="card border-l-4 border-emerald-500"><h3 class="font-bold text-white mb-1">✓ Explicit Opt-In Value</h3><p class="text-slate-400 text-sm">Users get 0.5% lower APR for consenting.</p></div>
+                <div class="card border-l-4 border-blue-500"><h3 class="font-bold text-white mb-1">🛡️ Edge Privacy</h3><p class="text-slate-400 text-sm">Processed locally. No cloud PII.</p></div>
+                <div class="card border-l-4 border-amber-500"><h3 class="font-bold text-white mb-1">⚖️ Anti-Bias Calibration</h3><p class="text-slate-400 text-sm">Baselines adjusted for neurodivergence.</p></div>
+                <div class="card border-l-4 border-rose-500"><h3 class="font-bold text-white mb-1">👤 The Human Override</h3><p class="text-slate-400 text-sm">Mandatory "Speak to a Human" button.</p></div>
+            </div>
+        </div>
+        <!-- <div class="slide-number">11 / 18</div> -->
+    </section>
+
+    <!-- Slide 12: Conclusion -->
+    <section class="slide">
+        <div class="slide-content text-center">
+            <div class="section-tag">11. Conclusion</div>
+            <h2 class="text-5xl font-bold mb-6">Alignment with IITK Objectives</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-left max-w-4xl mx-auto mb-10">
+                <div class="p-4 bg-slate-800 rounded border border-slate-700"><h4 class="font-bold text-white text-sm">💡 First Principles</h4></div>
+                <div class="p-4 bg-slate-800 rounded border border-slate-700"><h4 class="font-bold text-white text-sm">📱 UX Innovation</h4></div>
+                <div class="p-4 bg-slate-800 rounded border border-slate-700"><h4 class="font-bold text-white text-sm">📈 Business ROI</h4></div>
+                <div class="p-4 bg-slate-800 rounded border border-slate-700"><h4 class="font-bold text-white text-sm">🔒 Ethical AI</h4></div>
+            </div>
+            <h3 class="text-2xl font-bold text-amber-500">Thank You. (Appendix Follows)</h3>
+        </div>
+        <!-- <div class="sli/de-number">12 / 18</div> -->
+    </section>
+
+    <!-- ================= APPENDIX (SLIDES 13-18) ================= -->
+
+    <!-- Slide 13: Appendix Title -->
+    <section class="slide items-center text-center bg-slate-900 border-t-8 border-amber-500">
+        <div class="slide-content">
+            <h1 class="text-5xl md:text-7xl font-extrabold mb-6 tracking-tight text-slate-300">
+                APPENDIX
+            </h1>
+            <p class="text-xl text-amber-500 max-w-2xl mx-auto font-mono">
+                [ Technical Data, Research Depth & Financial Models ]
+            </p>
+        </div>
+        <!-- <div class="slide-number">13 / 18</div> -->
+    </section>
+
+    <!-- Slide 14: Mathematical Modeling -->
+    <section class="slide">
+        <div class="slide-content">
+            <div class="section-tag appendix-tag">Appendix A | Data Architecture</div>
+            <h2 class="text-3xl font-bold mb-4">The "Emotional Inference" Algorithm</h2>
+            <p class="text-slate-400 mb-6 max-w-4xl text-sm">How raw edge telemetry is quantified into a usable financial metric. The Anxiety Index ($A_i$) triggers UI friction when $A_i > 75%$.</p>
+            
+            <div class="card mb-6">
+                <div class="math-formula">
+                    A<sub>i</sub> = (w<sub>1</sub> × ΔT<sub>var</sub>) + (w<sub>2</sub> × P<sub>avg</sub>) + (w<sub>3</sub> × S<sub>erratic</sub>) - (w<sub>4</sub> × B<sub>baseline</sub>)
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm text-slate-300">
+                <div class="p-3 bg-slate-800 rounded"><strong>ΔT<sub>var</sub>:</strong> Keystroke Timing Variance (ms)</div>
+                <div class="p-3 bg-slate-800 rounded"><strong>P<sub>avg</sub>:</strong> Screen Touch Pressure (Z-axis)</div>
+                <div class="p-3 bg-slate-800 rounded"><strong>S<sub>erratic</sub>:</strong> Scroll Reversal Frequency</div>
+                <div class="p-3 bg-slate-800 rounded"><strong>B<sub>baseline</sub>:</strong> User's Historical Calm State</div>
+            </div>
+        </div>
+        <!-- <div class="slide-number">14 / 18</div> -->
+    </section>
+
+    <!-- Slide 15: Financial / Excel Model -->
+    <section class="slide">
+        <div class="slide-content">
+            <div class="section-tag appendix-tag">Appendix B | Financial Modeling</div>
+            <h2 class="text-3xl font-bold mb-4">Cost-Benefit Analysis (Simulated Bank)</h2>
+            <p class="text-slate-400 mb-6 max-w-4xl text-sm">Projected ROI for a mid-sized lending institution (1 Million Active Borrowers) deploying Emotional AI vs Traditional Models over 12 months.</p>
+            
+            <div class="card overflow-x-auto">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Metric</th>
+                            <th>Traditional (Status Quo)</th>
+                            <th>Emotional AI Integration</th>
+                            <th class="text-emerald-400">Net Impact</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-sm">
+                        <tr>
+                            <td>Loan Originations (Thin-File)</td>
+                            <td>50,000 users</td>
+                            <td>75,000 users</td>
+                            <td class="text-emerald-400">+50% Revenue Base</td>
+                        </tr>
+                        <tr>
+                            <td>Early Default Rate (< 3 months)</td>
+                            <td>8.5%</td>
+                            <td>4.2%</td>
+                            <td class="text-emerald-400">-50.5% (Friction effect)</td>
+                        </tr>
+                        <tr>
+                            <td>Call Center Collection Costs</td>
+                            <td>$4.2 Million / yr</td>
+                            <td>$2.6 Million / yr</td>
+                            <td class="text-emerald-400">$1.6M Saved</td>
+                        </tr>
+                        <tr>
+                            <td>Collection Recovery Rate</td>
+                            <td>24%</td>
+                            <td>41%</td>
+                            <td class="text-emerald-400">+17% absolute</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- <div class="slide-number">15 / 18</div> -->
+    </section>
+
+    <!-- Slide 16: Regulatory Matrix -->
+    <section class="slide">
+        <div class="slide-content">
+            <div class="section-tag appendix-tag">Appendix C | Compliance Strategy</div>
+            <h2 class="text-3xl font-bold mb-4">Regulatory & Privacy Mapping</h2>
+            <p class="text-slate-400 mb-6 max-w-4xl text-sm">How our architecture natively complies with global and Indian financial data regulations.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="card border-t-2 border-slate-500">
+                    <h3 class="font-bold text-amber-500 mb-2">DPDP Act (India) / GDPR</h3>
+                    <p class="text-xs text-slate-300"><strong>Requirement:</strong> Data Minimization & Consent.<br/><br/><strong>Our Solution:</strong> Zero raw biometrics leave the device. Opt-in is legally auditable and incentivized.</p>
+                </div>
+                <div class="card border-t-2 border-slate-500">
+                    <h3 class="font-bold text-blue-500 mb-2">RBI Fair Practice Code</h3>
+                    <p class="text-xs text-slate-300"><strong>Requirement:</strong> No coercive recovery tactics.<br/><br/><strong>Our Solution:</strong> System hardcodes "Compassionate Collections", keeping banks strictly out of RBI penalty zones.</p>
+                </div>
+                <div class="card border-t-2 border-slate-500">
+                    <h3 class="font-bold text-emerald-500 mb-2">Algorithmic Fairness</h3>
+                    <p class="text-xs text-slate-300"><strong>Requirement:</strong> No redlining or demographic bias.<br/><br/><strong>Our Solution:</strong> Model relies solely on real-time motor-function variance, blind to age, gender, or location.</p>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="slide-number">16 / 18</div> -->
+    </section>
+
+    <!-- Slide 17: Logic Flowchart -->
+    <section class="slide">
+        <div class="slide-content">
+            <div class="section-tag appendix-tag">Appendix D | Technical Logic Gate</div>
+            <h2 class="text-3xl font-bold mb-6">Edge Intervention Flowchart</h2>
+            
+            <div class="flex flex-col items-center max-w-3xl mx-auto space-y-2 text-sm font-mono">
+                <div class="px-6 py-2 bg-blue-600 rounded text-white font-bold">User Opens Loan Application</div>
+                <div class="text-slate-500 text-xl">↓</div>
+                <div class="px-6 py-2 bg-slate-800 border border-slate-600 rounded">Sensors Gather 5-second Telemetry Window</div>
+                <div class="text-slate-500 text-xl">↓</div>
+                <div class="px-6 py-3 bg-amber-600 rounded text-white font-bold text-center">
+                    Is Inference Score > 75% (Panic Zone)?
+                </div>
+                <div class="flex w-full justify-center space-x-12 mt-2">
+                    <div class="flex flex-col items-center">
+                        <div class="text-slate-400 mb-1">NO (Calm)</div>
+                        <div class="text-slate-500 text-xl">↓</div>
+                        <div class="px-4 py-2 bg-emerald-600 rounded text-white">Standard 1-Click Flow</div>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="text-slate-400 mb-1">YES (Anxious)</div>
+                        <div class="text-slate-500 text-xl">↓</div>
+                        <div class="px-4 py-2 bg-red-600 rounded text-white">Trigger Dynamic Friction</div>
+                        <div class="text-slate-500 text-xl">↓</div>
+                        <div class="px-4 py-2 bg-slate-800 border border-slate-600 rounded text-center">Inject Mandatory Summary<br/>& Delay Button 5s</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="slide-number">17 / 18</div> -->
+    </section>
+
+    <!-- Slide 18: Bibliography -->
+    <section class="slide">
+        <div class="slide-content">
+            <div class="section-tag appendix-tag">Appendix E | Research Depth</div>
+            <h2 class="text-3xl font-bold mb-4">Core Behavioral Finance Principles Utilized</h2>
+            <p class="text-slate-400 mb-6 text-sm">Demonstrating alignment with established academic research to validate the "Rationality Blindspot".</p>
+            
+            <ul class="space-y-4 text-sm text-slate-300">
+                <li class="p-3 bg-slate-800 rounded border-l-2 border-amber-500">
+                    <strong>1. Prospect Theory (Kahneman & Tversky, 1979):</strong> Humans are risk-seeking in the domain of losses. Explains why individuals in debt make extremely high-risk borrowing decisions (panic borrowing). Our AI detects this state.
+                </li>
+                <li class="p-3 bg-slate-800 rounded border-l-2 border-blue-500">
+                    <strong>2. The Affect Heuristic (Slovic et al., 2002):</strong> Current emotions influence decision-making more than empirical facts. Validates our shift from measuring "Historical Data" to "Current Emotional State".
+                </li>
+                <li class="p-3 bg-slate-800 rounded border-l-2 border-emerald-500">
+                    <strong>3. Friction as a De-biasing Tool (Thaler & Sunstein - "Nudge"):</strong> Introducing micro-barriers (Positive Friction) forces the brain to shift from System 1 (fast, emotional thinking) to System 2 (slow, logical thinking).
+                </li>
+            </ul>
+        </div>
+        <div class="slide-number">18 / 18</div>
+    </section>
+
+</div>
+
+<script>
+    Chart.defaults.color = '#94a3b8';
+    Chart.defaults.font.family = 'Inter';
+
+    function wrapLabel(label) {
+        if (label.length <= 16) return label;
+        const words = label.split(' ');
+        let lines = [], currentLine = '';
+        words.forEach(word => {
+            if ((currentLine + word).length > 16) {
+                if (currentLine) lines.push(currentLine.trim());
+                currentLine = word + ' ';
+            } else { currentLine += word + ' '; }
+        });
+        if (currentLine) lines.push(currentLine.trim());
+        return lines;
+    }
+    const tCfg = { callbacks: { title: function(tI) { let l = tI[0].chart.data.labels[tI[0].dataIndex]; return Array.isArray(l) ? l.join(' ') : l; } } };
+
+    // Slide 2: Radar
+    new Chart(document.getElementById('radarChart'), {
+        type: 'radar', data: {
+            labels: ['Financial History', 'Income Stability', 'Emotional Resilience', 'Current Stress Level', 'Impulse Control'].map(wrapLabel),
+            datasets: [{ label: 'Traditional Score', data: [95, 90, 20, 10, 20], backgroundColor: 'rgba(239, 68, 68, 0.2)', borderColor: '#ef4444' },
+                       { label: 'Emotional AI', data: [85, 80, 85, 80, 90], backgroundColor: 'rgba(16, 185, 129, 0.3)', borderColor: '#10b981' }]
+        }, options: { responsive: true, maintainAspectRatio: false, scales: { r: { ticks: { display: false }, grid: { color: 'rgba(255, 255, 255, 0.1)' } } }, plugins: { tooltip: tCfg, legend:{labels:{color:'#fff'}} } }
+    });
+
+    // Slide 3: Bubble
+    new Chart(document.getElementById('bubbleChart'), {
+        type: 'bubble', data: {
+            datasets: [ { label: 'Stock Trading', data: [{x: 70, y: 60, r: 20}], backgroundColor: 'rgba(245, 158, 11, 0.6)' },
+                        { label: 'Lending & Collections', data: [{x: 85, y: 90, r: 35}], backgroundColor: 'rgba(16, 185, 129, 0.8)' } ]
+        }, options: { responsive: true, maintainAspectRatio: false, scales: { x: { title: { display: true, text: 'Emotional Stress', color: '#fff' } }, y: { title: { display: true, text: 'Bank Risk', color: '#fff' } } } }
+    });
+
+    // Slide 4: Doughnut
+    new Chart(document.getElementById('doughnutChart'), {
+        type: 'doughnut', data: { labels: ['Typing Variance', 'Touch Pressure', 'Nav Speed'].map(wrapLabel), datasets: [{ data: [40, 40, 20], backgroundColor: ['#3b82f6', '#10b981', '#f59e0b'], borderWidth: 0 }] },
+        options: { responsive: true, maintainAspectRatio: false, cutout: '75%', plugins: { legend: { position: 'bottom', labels:{color:'#fff'} } } }
+    });
+
+    // Slide 6: Bar
+    new Chart(document.getElementById('stackedBarChart'), {
+        type: 'bar', data: { labels: ['Traditional', 'Emotional AI'].map(wrapLabel), datasets: [ { label: 'Approved (Prime)', data: [60, 60], backgroundColor: '#10b981' }, { label: 'Approved (Thin-File)', data: [5, 25], backgroundColor: '#3b82f6' } ] },
+        options: { responsive: true, maintainAspectRatio: false, scales: { x: { stacked: true }, y: { stacked: true } }, plugins: { legend:{labels:{color:'#fff'}} } }
+    });
+
+    // Slide 7: Scatter
+    new Chart(document.getElementById('scatterChart'), {
+        type: 'scatter', data: { datasets: [{ label: 'Friction Map', data: [{x: 20, y: 15}, {x: 80, y: 90}], backgroundColor: '#f59e0b', pointRadius: 8 }] },
+        options: { responsive: true, maintainAspectRatio: false, scales: { x: { title: { display: true, text: 'Anxiety', color: '#fff' } }, y: { title: { display: true, text: 'UI Friction', color: '#fff' } } } }
+    });
+
+    // Slide 9: Line
+    new Chart(document.getElementById('lineChart'), {
+        type: 'line', data: { labels: ['Day 1', 'Day 30', 'Day 90'].map(wrapLabel), datasets: [ { label: 'Aggressive', data: [15, 23, 25], borderColor: '#ef4444' }, { label: 'Empathetic', data: [5, 48, 75], borderColor: '#10b981' } ] },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend:{labels:{color:'#fff'}} } }
+    });
+
+    // Slide 10: Horizontal Bar
+    new Chart(document.getElementById('barChart'), {
+        type: 'bar', data: { labels: ['Default Reduction', 'Call Center Savings'].map(wrapLabel), datasets: [{ data: [18, 45], backgroundColor: ['#10b981', '#3b82f6'] }] },
+        options: { responsive: true, maintainAspectRatio: false, indexAxis: 'y', plugins: { legend: { display: false } } }
+    });
+</script>
+</body>
+</html>
